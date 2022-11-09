@@ -1,0 +1,45 @@
+﻿@model IndexPageEntity
+
+@{  
+    ViewData["Title"] = "EditIndexPageEntity";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<hr />
+<div class="row" style="margin-top:200px;">
+    <div class="col-md-4">
+        <form asp-action="EditIndexPage" enctype="multipart/form-data">
+            <div class="form-group">
+                <label asp-for="TopImage.ImageFile" class="control-label"></label>
+                <input asp-for="TopImage.ImageFile" class="form-control" />
+                <span asp-validation-for="TopImage.ImageFile" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="TopImageId" class="control-label"></label>
+                <input asp-for="TopImageId" class="form-control" />
+                <span asp-validation-for="TopImageId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="SpecificImage.ImageFile" class="control-label"></label>
+                <input asp-for="SpecificImage.ImageFile" class="form-control" />
+                <span asp-validation-for="SpecificImage.ImageFile" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="SpecificImageId" class="control-label"></label>
+                <input asp-for="SpecificImageId" class="form-control" />
+                <span asp-validation-for="SpecificImageId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <button class="btn btn-warning">Update</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

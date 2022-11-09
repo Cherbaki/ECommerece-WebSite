@@ -1,0 +1,180 @@
+﻿
+.InnerMainDiv{
+    display:flex;
+    flex-wrap:wrap;
+    width:100%;
+    height:auto;
+    margin-top: 50px;
+    row-gap:20px;
+}
+
+.ProductImages {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height:auto;
+    width:700px;
+    background-position-x:center;
+}
+
+.ProductImagesFrame{
+    width:600px;
+    height:500px;
+    border-radius:8px;
+}
+
+.ProductInfo {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    flex-wrap: wrap;
+    width:auto;
+}
+
+.productImage {
+    width: 100%;
+    height: 100%;
+    display: none;
+}
+
+.rightArrow {
+    display:none;
+}
+
+.leftArrow {
+    display: none;
+}
+
+.miniImage{
+    width: 80px;
+    height: 80px;
+    border: solid;
+    border-radius: 8px;
+    border-color: darkgray;
+    margin-left: 10px;
+}
+
+.miniImage:hover{
+    cursor:pointer;
+    border-color:yellowgreen;
+}
+
+@media screen and (max-width:1260px) {
+    .ProductInfo {
+        width: 180px;
+    }
+}
+
+@media screen and (max-width:900px) {
+    .InnerMainDiv {
+        justify-content: center;
+        margin-top: 20px;
+    }
+
+    .ProductImages {
+        width: 90%;
+    }
+
+    .ProductInfo {
+        width: 90%;
+    }
+
+    .ProductImagesFrame {
+        height: 70%;
+    }
+
+    .rightArrow {
+        display: block;
+        position: absolute;
+        margin-top: 20%;
+        margin-left: 70%;
+        font-size: 60px;
+        opacity: 0.7;
+    }
+
+    .leftArrow {
+        display: block;
+        position: absolute;
+        margin-top: 20%;
+        font-size: 60px;
+        opacity: 0.7;
+    }
+
+    .miniImage {
+        display: none;
+    }
+}
+
+@media screen and (max-width:450px) {
+
+    .InnerMainDiv {
+        justify-content:center;
+        margin-top: 100px;
+    }
+
+    .ProductImages {
+        width: 90%;
+    }
+    
+    .ProductInfo {
+        width: 90%;
+    }
+
+    .ProductImagesFrame{
+        height:400px;
+    }
+
+    .rightArrow {
+        display:block;
+        position: absolute;
+        margin-top:100px;
+        margin-left:75%;
+        font-size:60px;
+        opacity:0.7;
+    }
+
+    .leftArrow {
+        display: block;
+        position: absolute;
+        margin-top: 100px;
+        font-size: 60px;
+        opacity: 0.7;
+    }
+}
+
+@media screen and (max-width:300px) {
+
+    .InnerMainDiv {
+        justify-content: center;
+        margin-top: 100px;
+    }
+
+    .ProductImages {
+        width: 90%;
+    }
+
+    .ProductInfo {
+        width: 90%;
+    }
+
+    .ProductImagesFrame {
+        height: 300px;
+    }
+
+    .rightArrow {
+        display: block;
+        position: absolute;
+        margin-top: 100px;
+        margin-left: 200px;
+        font-size: 60px;
+        opacity: 0.7;
+    }
+
+    .leftArrow {
+        display: block;
+        position: absolute;
+        margin-top: 100px;
+        font-size: 60px;
+        opacity: 0.7;
+    }
+}

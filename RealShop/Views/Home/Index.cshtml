@@ -1,0 +1,100 @@
+﻿@using RealShop.ViewModels
+
+@model IndexPageModel
+
+<link rel="stylesheet" href="~/css/Home/Index.css"/>
+
+@{
+    if (Model?.IsAdmin == true)
+        ViewData["Title"] = "Home(Admin)";
+    else
+        ViewData["Title"] = "Home";
+} 
+    
+<partial name="/Views/Shared/_Categories.cshtml" model="@Model!.Categories" />
+
+    <div class="MainDiv">
+
+        <!--Top Bar-->
+        <div class="TopBar" style="background-image: url('@Model?.TopImage.ImageUrl');" onclick="document.getElementById('TopBarAnchor').click();">
+            <a id="TopBarAnchor" style="display:none;" asp-controller="Category" asp-action="Index" 
+                asp-route-categoryId="@Model!.TopImageId">
+            </a>
+            @if (Model?.IsAdmin == true)
+            {
+                <a class="btn btn-success" asp-controller="Home" asp-action="EditIndexPage">Edit</a>
+            }
+        </div>
+
+        <!--Inner Flex-->
+        <div class="InnerFlex"> 
+
+            <!--Products-->
+            @for(int i = 0; i < 4; i++)
+            {
+                @if(Model!.Products != null)
+                {   
+                    @if (Model.Products.ElementAt(i) != null && i < Model.Products.Count())
+                    {
+                       <div class="InnerFlexItem" onclick="document.getElementById('@Model.Products.ElementAt(i).Id').click();">
+                           <img class="prodImage" src="@Model.Products.ElementAt(i).MainIcon!.ImageUrl"/>
+                           <h3 style="width:100%;color:darkgray;font-family:Candara;">@Model.Products.ElementAt(i).User!.FirstName</h3>
+                           <h3 style="width:100%;font-weight:bold;font-family:Cursive;">@Model.Products.ElementAt(i).Name</h3>
+                           <h3 style="width:100%;font-family:Verdana;">$@Model.Products.ElementAt(i).Price</h3>
+                           <a id="@Model.Products.ElementAt(i).Id" style="display:none;" 
+                                asp-controller="Product" asp-action="ProductPage" asp-route-productId="@Model.Products.ElementAt(i).Id">
+                           </a> 
+                       </div>
+                    }
+                }
+            }
+
+            <!--Special Category-->
+            <div style="background-image: url('@Model?.SpecificImage.ImageUrl');" class="InnerFlexItem SpecialPlace"
+                onclick="document.getElementById('SpeificProdAnchor').click();">
+            </div>
+            <a id="SpeificProdAnchor" style="display:none;" asp-controller="Category" asp-action="Index" 
+                asp-route-categoryId="@Model!.SpecificImageId">
+            </a>
+            
+            <!--Products-->
+            @for(int i = 4; i < 10; i++)
+            {
+                @if(Model!.Products != null && i < Model.Products.Count())
+                {   
+                    @if (Model.Products.ElementAt(i) != null)
+                    {
+                       <div class="InnerFlexItem" onclick="document.getElementById('@Model.Products.ElementAt(i).Id').click();">
+                           <img class="prodImage" src="@Model.Products.ElementAt(i).MainIcon!.ImageUrl"/>
+                           <h3 style="width:100%;color:darkgray;font-family:Candara;">@Model.Products.ElementAt(i).User!.FirstName</h3>
+                           <h3 style="width:100%;font-weight:bold;font-family:Cursive;">@Model.Products.ElementAt(i).Name</h3>
+                           <h3 style="width:100%;font-family:Verdana;">$@Model.Products.ElementAt(i).Price</h3>
+                           <a id="@Model.Products.ElementAt(i).Id" style="display:none;" 
+                                asp-controller="Product" asp-action="ProductPage" asp-route-productId="@Model.Products.ElementAt(i).Id">
+                           </a> 
+                       </div>
+                    }
+                }
+            }
+        </div>
+
+        <!--Abouts-->
+        <div class="Abouts text text-center">
+            <h3 style="color:black;font-weight:bold;font-family:Cursive;">Contact Us</h3>
+            <br />
+            <h5 style="color:darkgray;font-weight:100;font-family:Candara;">Email: FakeEmail@@gmail.com</h5>
+            <br />
+            <h5 style="color:darkgray;font-weight:100;font-family:Candara;">Phone: (+985)000 123 552</h5>
+            <br />
+            <h5 style="color:darkgray;font-weight:100;font-family:Candara;">Adress: FakeCity/FakeStreet/FakeNumber</h5>
+            <br />
+            <h5 style="color:darkgray;font-weight:100;font-family:Candara;">Service Houres: 9am to 6mp evryday except sunday</h5>
+        </div>
+
+    </div>
+  
+
+
+@section Scripts{
+    <script src="~/js/site.js" asp-append-version="true"></script>
+}

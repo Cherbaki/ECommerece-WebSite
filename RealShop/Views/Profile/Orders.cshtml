@@ -1,0 +1,28 @@
+﻿@model IEnumerable<RealShop.Models.Order>
+
+
+@{
+    ViewData["Title"] = "Orders";
+    Layout = "/Areas/Identity/Pages/_Layout.cshtml";
+}
+
+<h1 class="text text-center">Orders</h1>
+
+<link rel="stylesheet" href="~/css/Profile/Index.css"/>
+
+
+<div class="MainOrdersDiv"> 
+    @foreach (var item in Model) {
+
+        <div class="OrdersDiv">
+            <h1 class="OrdersDivsContent">Order Name: @item!.Name</h1>
+            <h1 class="OrdersDivsContent">Price: $@item!.MoneySpent</h1>
+            <h1 class="OrdersDivsContent">Creation Time: @item!.CreationTime</h1>
+            <h1 class="OrdersDivsContent">Product Name: @item!.ProductName</h1>
+            <a asp-controller="Product" asp-action="ProductPage" asp-route-productId="@item.Product.Id">
+                <img style="width:200px;height:250px;" src='@item.Product!.MainIcon!.ImageUrl'>
+            </a>
+        </div>        
+
+    }
+</div>

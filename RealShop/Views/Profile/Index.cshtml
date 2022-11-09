@@ -1,0 +1,85 @@
+﻿@using RealShop.ViewModels
+
+@model ProfilePageModel
+
+
+@{
+    ViewData["Title"] = "Profile";
+}
+
+<link rel="stylesheet" href="~/css/Profile/Index.css"/>
+
+
+<partial name="/Views/Shared/_Categories.cshtml" model="@Model!.Categories" />
+
+<div class="MainDiv">
+
+    <!--Profile Settings Gear Icon-->
+    <div class="GearIconDiv">
+        <a asp-area="Identity" asp-page="/Account/Manage/Index">
+            <i class="bi bi-gear" style="font-size:50px;color:darkcyan;"></i>
+        </a>
+    </div>
+
+    <!--Profile page content-->
+    <div class="ProfilePageContent">
+        <!--Profile Info-->
+        <div class="ProfilePageContentItem">
+            <div class="ProfileInfo">
+                <div class="ProfileImageDiv">
+                    <img src="@Model!.CurrentUser!.ProfileImage!.ImageUrl" style="width:100%;height:100%;border-radius:50%;"/>
+                    <form id="IconForm" class="EditProfPicButton" method="post" enctype="multipart/form-data">    
+                        <h3 style="color:black;cursor:pointer;" onclick="document.getElementById('PPIF').click()" class="bi bi-pencil-square" ></h3>
+				        <input id="PPIF" asp-for="CurrentUser!.ProfileImage!.ImageFile" style="display:none;"/>
+                    </form>
+                </div>
+                <h1 style="width:100%;font-family:Cursive;color:darkgoldenrod;font-size:30px;">Name: @Model.CurrentUser.FirstName</h1>
+                <h1 style="width:100%;font-family:Cursive;color:darkgoldenrod;font-size:30px;">Lastname: @Model.CurrentUser.LastName</h1>
+            </div>
+            <div class="OrderButtonDiv">
+                <a class="btn btn-warning OrderButton" asp-controller="Profile" asp-action="Orders">Orders</a>
+            </div>
+        </div>
+        <!--Products-->
+        <div class="ProfilePageContentItem">
+            <div class="ProductsList">
+                    <a class="ProductsListItem AddProductDiv" asp-controller="Product" asp-action="CreateProduct">
+                        <i class="bi bi-plus-circle-dotted"></i>
+                    </a>
+                @foreach(var product in Model.Products)
+                {
+                    <div class="ProductsListItem" onclick="document.getElementById('@product.Id').click();">
+                        <img class="ProductImage" src="@product.MainIcon!.ImageUrl"/>
+                        <a class="btn btn-danger" asp-controller="Product" asp-action="DeleteProduct"
+                            asp-route-id="@product.Id">Delete
+                        </a>
+                        <a class="btn btn-danger" asp-controller="Product" asp-action="EditProduct"
+                            asp-route-id="@product.Id">Edit
+                        </a>
+                    </div>
+                    <a id="@product.Id" style="display:none;" 
+                        asp-controller="Product" asp-action="ProductPage" asp-route-productId="@product.Id">
+                    </a>
+                }
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+
+@section Scripts{
+    <script src="~/js/site.js" asp-append-version="true"></script>
+}
+
+<script type="text/javascript">
+
+		var PPIF = document.getElementById("PPIF");
+		var IconForm = document.getElementById("IconForm");
+		
+		PPIF.addEventListener("change",function(){
+			IconForm.submit();
+		});
+
+</script>

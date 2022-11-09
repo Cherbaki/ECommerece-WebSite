@@ -1,0 +1,171 @@
+﻿.MainDiv {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    margin-top:68px;
+    left: 0;
+}
+
+.GearIconDiv {
+    display: flex;
+    justify-content: end;
+    align-items: center;
+}
+
+.ProfilePageContent {
+    display: flex;
+    column-gap: 10px;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+   
+.ProfilePageContentItem {
+    display:flex;
+    flex-wrap:wrap;
+    justify-content:center;
+    width: 49%;
+    height: auto;
+}
+
+.ProfileInfo{
+    display:flex;
+    justify-content:start;
+    align-items:start;
+    flex-wrap:wrap;
+    width:70%;
+    height:50%;
+    overflow:hidden;
+    border-color:black;
+    border-radius:8px;
+}
+
+.ProfileImageDiv {
+    display:flex;
+    width: 150px;
+    height: 50%;
+    border: 4px dotted black;
+    border-radius: 50%;
+    margin-left: 10px;
+    margin-top:5px;
+}
+
+.EditProfPicButton {
+    position: absolute;
+}
+
+.OrderButtonDiv{
+    display:flex;
+    justify-content:start;
+    width:100%;
+    margin-bottom:170px;
+}
+
+.OrderButton {
+    border-radius: 8px;
+    width: 300px;
+    height: 100px;
+    text-align: center;
+    font-size: 50px;
+    font-family: Cursive;
+    margin-left: 15%;
+}
+
+.ProductsList {
+    display: flex;
+    overflow-y:scroll;
+    height: 600px;
+    justify-content: space-around;
+    align-items: center;
+    flex-wrap: wrap;
+    column-gap: 20px;
+    row-gap: 50px;
+}
+
+.AddProductDiv{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    font-size:100px;
+    border:dotted;
+    border-radius:10px;
+    border-color:gray;
+    margin-top:10px;
+}
+
+.ProductsListItem {
+    width: 300px;
+    height: 350px;
+    cursor: pointer;
+    transition: 1s;
+}
+
+.ProductsListItem:hover{
+    transform:scale(1.05);
+}
+
+.ProductImage {
+    width: 100%;
+    height: 100%;
+    border-radius: 10px;
+}
+
+.MainOrdersDiv{
+    display:flex;
+    justify-content:center;
+    row-gap:20px;
+    flex-wrap:wrap;
+}
+    
+.OrdersDiv {
+    display: flex;
+    justify-content: start;
+    width: 100%;
+    flex-wrap: wrap;
+    border: solid;
+    border-width:4px;
+    border-color: purple;
+    border-radius: 8px;
+}
+
+.OrdersDivsContent {
+    font-size: 20px;
+    width: 100%;
+    font-family: Cursive;
+}
+
+@media screen and (max-width:1265px) {
+    .ProductsListItem{
+        width:200px;
+        height:250px;
+    }
+
+}
+
+@media screen and (max-width:650px) {
+
+    .GearIconDiv {
+        margin-top: 40px;
+    }
+
+    .ProfilePageContentItem {
+        width: 100%;
+    }
+
+    .ProductsList {
+        width: 99%;
+
+        border:solid;
+        border-radius: 8px;
+        border-color: gray;
+    }
+
+    .ProductsListItem {
+        width: 150px;
+        height: 180px;
+    }
+
+    .ProfileInfo{
+        justify-content:center;
+    }
+
+}

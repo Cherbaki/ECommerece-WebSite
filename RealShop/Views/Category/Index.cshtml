@@ -1,0 +1,94 @@
+﻿@using RealShop.ViewModels
+
+@model CategoryPageModel
+
+<link rel="stylesheet" href="~/css/Home/Index.css"/>
+
+
+@{
+    ViewData["Title"] = @Model.TargetCategory.Name;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<partial name="/Views/Shared/_Categories.cshtml" model="@Model!.Categories" />
+
+<div class="MainDiv">
+
+        <div style="margin-top:120px;font-family:cursive;">
+            <h1 class="text text-center">@Model!.TargetCategory.Name</h1>
+        </div>
+
+        <!--Products-->
+        <div class="InnerFlex">   
+            @for(int i = 0; i < Model!.Products!.Count(); i++)
+            {
+                @if(Model!.Products != null)
+                {   
+                    @if (Model.Products.ElementAt(i) != null)
+                    {
+                       <div style="display:none;" class="InnerFlexItem" onclick="document.getElementById('@Model.Products.ElementAt(i).Id').click();">
+                           <img class="prodImage" src="@Model.Products.ElementAt(i).MainIcon!.ImageUrl"/>
+                           <h3 style="width:100%;color:darkgray;font-family:Candara;">@Model.Products.ElementAt(i).User!.FirstName</h3>
+                           <h3 style="width:100%;font-weight:bold;font-family:Cursive;">@Model.Products.ElementAt(i).Name</h3>
+                           <h3 style="width:100%;font-family:Verdana;">$@Model.Products.ElementAt(i).Price</h3>
+                           <a id="@Model.Products.ElementAt(i).Id" style="display:none;" 
+                                asp-controller="Product" asp-action="ProductPage" asp-route-productId="@Model.Products.ElementAt(i).Id">
+                           </a> 
+                       </div>
+                    }
+                }
+            }
+        </div>
+
+        <div style="display:flex;justify-content:center;align-items:center;">
+            <a id="AddMoreButton" class="btn btn-primary">Add More</a>
+        </div>
+</div>
+
+
+
+<script>
+
+    var AddMoreButton = document.getElementById("AddMoreButton");
+    var InnerFlexItems = document.querySelectorAll('.InnerFlexItem');
+
+
+    var defaultNum = 12;
+    var increaser = 8;
+
+    for(i = 0; i < defaultNum; i++){
+            
+            if(InnerFlexItems[i]){
+                InnerFlexItems[i].style.display = 'block';
+            }
+    }
+
+    if(InnerFlexItems.length <= defaultNum){
+        AddMoreButton.style.display = "none";
+    }
+
+    
+    AddMoreButton.addEventListener('click',function(){
+        
+        for(i = defaultNum; i < defaultNum + increaser; i++){
+            if(InnerFlexItems[i]){
+                InnerFlexItems[i].style.display = 'block';
+            }
+        }
+
+        defaultNum += increaser;
+        if(defaultNum >= InnerFlexItems.length){
+            event.target.style.display = "none";
+        }
+
+    });
+</script>
+
+
+
+@section Scripts{
+    <script src="~/js/site.js" asp-append-version="true"></script>
+}
+
+
+

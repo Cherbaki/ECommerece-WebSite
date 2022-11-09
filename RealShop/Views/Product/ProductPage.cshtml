@@ -1,0 +1,78 @@
+﻿@using RealShop.ViewModels
+
+@model ProductPageModel
+
+@{
+    ViewData["Title"] = "ProductPage";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<link rel="stylesheet" href="~/css/Product/ProductPage.css"/>
+<link rel="stylesheet" href="~/css/Home/Index.css"/>
+
+<partial name="/Views/Shared/_Categories.cshtml" model="@Model!.Categories" />
+
+<div class="MainDiv mt-4">
+
+        <div class="InnerMainDiv">
+
+            <!--Product Images-->
+            <div class="ProductImages"> 
+
+                <div id="ProductImagesFrame"  class="ProductImagesFrame">
+                        <i id="rightArrow" class="rightArrow bi bi-arrow-right-square-fill"></i>
+                        <i id="leftArrow" class="leftArrow bi bi-arrow-left-square-fill"></i>
+                        <img class="productImage" src="@Model.TargetProduct.MainIcon!.ImageUrl"/>
+                        <img class="miniImage" src="@Model.TargetProduct.MainIcon.ImageUrl"/>
+                        @foreach (var image in Model.TargetProduct.Images!)
+                        {
+                            <img class="productImage" src="@image.ImageUrl">
+                            <img class="miniImage" src="@image.ImageUrl"/>
+                        }
+                </div>
+                
+            </div>
+            <!--Other stuff-->
+            <div class="ProductInfo">
+                <div style="display:flex;flex-wrap:wrap;width:100%;font-family:Candara;">
+                    <div style="width:100%;white-space:wrap;">
+                            <h1 style="font-weight:bold;">@Model.TargetProduct.Name</h1>
+                    </div>
+                    <div style="width:100%;white-space:wrap;font-family:Cursive;">
+                        <h2>@Model.TargetProduct.Description</h2>
+                    </div>
+                    <div style="width:100%;white-space:wrap;font-family:Verdana;">
+                        <h2 style="font-family:italic">$@Model.TargetProduct.Price</h2>
+                    </div>
+                </div>
+                <div>
+                    @if(Model.IsSignedIn)
+                    {
+                        @if (Model.IsProductOwner || Model.IsAdmin)
+                        {
+                            <a style="font-size:40px;" class="btn btn-warning" asp-action="EditProduct" asp-route-id="@Model.TargetProduct.Id">Edit</a>
+                        }
+                        else
+                        {
+                            <a style="font-size:40px;" asp-controller="Product" asp-action="CreateOrder" asp-route-productId="@Model.TargetProduct.Id" 
+                                class="btn btn-success">Buy
+                            </a>
+                        }
+                    }
+                    else
+                    {
+                        <a style="font-size:40px;" class="btn btn-warning" asp-area="Identity" asp-page="/Account/Login">SignIn</a>
+                    }
+                </div>
+            </div>
+        </div>
+</div>
+
+
+
+@section Scripts{
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="~/js/ProductPage.js" asp-append-version="true"></script>
+}
+

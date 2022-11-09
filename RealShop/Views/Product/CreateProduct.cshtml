@@ -1,0 +1,140 @@
+﻿@using RealShop.ViewModels
+
+@model CreateProductPageModel
+
+@{
+    ViewData["Title"] = "Create Product";
+    Layout = "/Areas/Identity/Pages/_Layout.cshtml";
+}
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
+
+<h1 class="text text-center" style="color:black;">Create Product</h1>
+<form method="post" enctype="multipart/form-data">
+
+        <div>
+            <label asp-for="Name"></label>
+            <input class="form-control" asp-for="Name"/>
+            <span asp-validation-for="Name" class="text text-danger"></span>
+        </div>
+        <div>
+            <label asp-for="Description"></label>
+            <input class="form-control" asp-for="Description"/>
+            <span asp-validation-for="Description" class="text text-danger"></span>
+        </div>
+        <div>
+            <label asp-for="Price"></label>
+            <input class="form-control" asp-for="Price"/>
+            <span asp-validation-for="Price" class="text text-danger"></span>
+        </div>
+        <div>
+                <label asp-for="MainIconFile"></label>
+                <input id="MIIF" asp-for="MainIconFile" style="display:block;width:0px;height:0px;" accept="image/jpeg,image/png,image/jpj"/>
+                <div style="display:flex;justify-content:center;align-items:end;width:100px;height:100px;border:solid;border-radius:8px;
+                    border-color:darkgray;border-width:2px;cursor:pointer;" onclick="document.getElementById('MIIF').click();">
+                    <img id="MainIconImage" style="width:100%;height:100%;"/>
+                    <i id="ImageIcon" class="bi bi-image-fill" style="font-size:25px;opacity:0.7;position:absolute;"></i>
+                </div>
+                <span asp-validation-for="MainIconFile" class="text-danger"></span>
+        </div>
+        <div>
+            <label asp-for="ProductImagesFiles"></label>
+            <input id="PIIF" asp-for="ProductImagesFiles" style="display:block;width:0px;height:0px;" accept="image/jpeg,image/png,image/jpj"/>
+            <div id="AssociatedImagesDiv" style="display:flex;width:auto;min-height:100px;height:auto;border:solid;border-color:darkgray;
+                border-width:2px;cursor:pointer;border-radius:8px;justify-content:center;align-items:center;column-gap:10px;flex-wrap:wrap;"
+                onclick="document.getElementById('PIIF').click();">
+                <i id="ImageIconForAssosImages" class="bi bi-image-fill" style="font-size:25px;opacity:0.7;position:absolute;"></i>
+            </div>
+            <span asp-validation-for="ProductImagesFiles" class="text text-danger"></span>
+        </div>
+        <div>
+            <label asp-for="TargetCategoryName">Choose Category</label>
+            <select asp-for="TargetCategoryName" class="form-control" asp-items="@new SelectList(ViewBag.CategoryNames)">
+            </select>
+            <span asp-validation-for="TargetCategoryName" class="text text-danger"></span>
+        </div>
+
+        <button style="margin-top:20px;" class="btn btn-warning">Create Product</button>
+
+</form>
+
+<style>
+
+    .AssociatedImagesDivItem{
+        width:90px;
+        height:90px;
+    }   
+
+</style>
+
+<script>
+
+    var MIIF = document.getElementById('MIIF');
+    var MainIconImage = document.getElementById('MainIconImage');
+    var ImageIcon = document.getElementById('ImageIcon');
+    var MainForm = document.getElementById('MainForm');
+
+
+    MIIF.oninput = function(){
+        var fReader = new FileReader();
+        fReader.addEventListener("load",() => {
+            MainIconImage.src = event.target.result;
+        });
+        fReader.readAsDataURL(this.files[0]);
+        if(MainIconImage.src != undefined || MainIconImage.src != ''){
+            ImageIcon.style.display = 'none';
+        }
+    }
+
+
+    var PIIF = document.getElementById("PIIF");
+    var AssociatedImagesDiv = document.getElementById('AssociatedImagesDiv');
+
+    
+    PIIF.addEventListener("change",() => {
+
+        //Checking if browser supports file upload API 
+        if(window.File && window.FileReader && window.FileList && window.Blob){
+            
+            //Getting list of all the uploaded file
+            const files = event.target.files;
+            
+            //Displaying all the uploaded images
+            for(var i = 0; i < files.length; i++){
+
+                //Disabling image icon
+                document.getElementById('ImageIconForAssosImages').style.display = 'none';
+
+                //Checking if file type is Image
+                if(!files[i].type.match("image"))
+                    continue;
+                
+                //Reading the file
+                const picReader = new FileReader();
+                picReader.readAsDataURL(files[i]);
+
+                picReader.addEventListener('load',() => {
+
+                    var imageUrl = event.target.result;
+
+                    const div = document.createElement("div");
+                    div.className = 'AssociatedImagesDivItem';
+                    div.innerHTML = `<img src="${event.target.result}" style="width:100%;height:100%;"/>`;
+                    AssociatedImagesDiv.appendChild(div);
+                    
+                });
+            }
+
+        }else {
+            alert("Your browser does not support the file API");
+        }
+
+    });
+
+
+</script>
+
+
+@section Scripts{
+    <partial name="_ValidationScriptsPartial"></partial>
+}

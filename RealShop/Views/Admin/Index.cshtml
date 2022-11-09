@@ -1,0 +1,16 @@
+﻿
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1 class="text text-center">Admin Controll Pannel</h1>
+
+<div style="display:flex;justify-content:center;align-content:center;margin-top:200px;column-gap:40px;">
+    <div>
+        <a class="btn btn-success" asp-controller="Admin" asp-action="Orders">Order</a>
+    </div>
+    <div>
+        <a class="btn btn-success" asp-controller="Home" asp-action="CreateCategory">Create Category</a>
+    </div>
+</div>
+

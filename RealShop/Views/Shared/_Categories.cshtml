@@ -1,0 +1,75 @@
+﻿@using Microsoft.AspNetCore.Identity
+@using RealShop.Areas.Identity.Data
+
+
+@model IEnumerable<Category>
+@inject UserManager<User> _userManager
+
+
+<link rel="stylesheet" href="~/css/Home/Index.css"/>
+
+
+@{
+    var currentUser = await _userManager.GetUserAsync(User);
+    bool IsAdmin = false;
+    if (currentUser != null)
+    {
+        var curretnUsersRoles = await _userManager.GetRolesAsync(currentUser);
+        
+        if (curretnUsersRoles.Count() <= 0)
+            IsAdmin = false;
+        else if (curretnUsersRoles?.ElementAt(0) == "Admin")
+            IsAdmin = true;
+    }
+}
+
+
+
+        <!--Categories Dorop-Down list-->
+        @if(currentUser != null)
+        {
+            <!--Here user is logged in-->
+            <div id="CategoriesList" class="CategoriesHide CategoriesWhenUserLoggedIn">
+                @if(Model != null){
+                    @for(int i = 0; i < Model.Count(); i++)
+                    {
+                         @if (Model.Count() > i)
+                         {
+                            @if (!IsAdmin)
+                            {
+                                <!--User is NOT Admin-->
+                                <a asp-controller="Category" asp-action="Index" asp-route-categoryId="@Model.ElementAt(i).Id">
+                                    <img class="CategoriesItemForList" src="@Model.ElementAt(i).MainIcon!.ImageUrl">
+                                </a>
+                            }else
+                            {
+                                <!--User IS Admin-->
+                                <a asp-controller="Category" asp-action="Index" asp-route-categoryId="@Model.ElementAt(i).Id">
+                                    <img class="CategoriesItemForList" src="@Model.ElementAt(i).MainIcon!.ImageUrl">
+                                    <a class="btn btn-warning" asp-controller="Home" asp-action="DeleteCategory" asp-route-id="@Model.ElementAt(i).Id">Delete</a>
+                                </a>
+                            }
+                         }
+                    }
+                }
+        </div>
+        }
+        else
+        {       
+            <!--Here user is not loggedIn-->
+            <div id="CategoriesList" class="CategoriesHide CategoriesWhenUserIsNotLoggedIn">
+                    @if(Model != null){
+                        @for(int i = 0; i < Model.Count(); i++)
+                        {
+                             @if (Model.Count() > i)
+                             {
+                                <a asp-controller="Category" asp-action="Index" asp-route-categoryId="@Model.ElementAt(i).Id">
+                                    <img class="CategoriesItemForList" src="@Model.ElementAt(i).MainIcon!.ImageUrl">
+                                </a>
+                             }
+                        }
+                    }
+            </div>
+        }
+
+
